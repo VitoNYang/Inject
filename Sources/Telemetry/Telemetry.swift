@@ -75,6 +75,7 @@ public protocol Telemetry {
 }
 
 public final class Silence: Telemetry {
+    public init() {}
     public func log<O>(injection: Injection<O>, returnedInstanceFromStorage instance: O, isOverride: Bool, isRetaining: Bool, context: Context) {}
     public func log<O>(injection: Injection<O>, returnedLocalInstance instance: O, context: Context) {}
     public func log<O>(injection: Injection<O>, overridden override: Injection<O>) {}
