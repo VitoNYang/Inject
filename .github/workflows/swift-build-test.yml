@@ -14,11 +14,11 @@ on:
 
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: macos-15
     steps:
-    - uses: swift-actions/setup-swift@v1
+    - uses: actions/checkout@v4
+    - uses: swift-actions/setup-swift@v2
       with:
-        swift-version: "5.8"
-    - uses: actions/checkout@v3
+        swift-version: "6.2"
     - name: Test
       run: swift test -v

@@ -95,14 +95,14 @@ class TestService: Service {
     func doWork() {}
 }
 
-class Consumer_Shared {
+@MainActor class Consumer_Shared {
     @Instance(shared) var service
 }
 
-class Consumer_Singleton {
+@MainActor class Consumer_Singleton {
     @Instance(singleton) var service
 }
 
-class Consumer_OnDemand {
+@MainActor class Consumer_OnDemand {
     @Instance(onDemand) var service
 }

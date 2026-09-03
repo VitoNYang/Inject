@@ -29,7 +29,7 @@ enum PackageA {
 
 @MainActor final class Override_Tests: XCTestCase {
 
-    final class Consumer {
+    @MainActor final class Consumer {
         @Instance(PackageA.sharedService) var service
 
         func perform() -> String {

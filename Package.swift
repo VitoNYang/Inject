@@ -1,4 +1,4 @@
-// swift-tools-version:5.7
+// swift-tools-version:6.2
 
 //===----------------------------------------------------------------------===//
 //
@@ -20,7 +20,7 @@ let package = Package(
     name: "Inject",
     platforms: [
         .macOS(.v12),
-        .iOS(.v13),
+        .iOS(.v14),
         .watchOS(.v8),
         .tvOS(.v15),
     ],
