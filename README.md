@@ -148,7 +148,7 @@ You can also directly override the dependency for the instance only, by directly
 
 ```swift
 import ServicePackage
-class Consumer {
+@MainActor class Consumer {
     @Instance(ServicePackage.serviceShared) var service
     
     func perform() -> String {
@@ -175,6 +175,34 @@ Inject requires Swift 6.2 (Swift 6 language mode). To depend on the Inject packa
 ```swift
 .package(url: "https://github.com/MaximBazarov/Inject.git", from: "1.0.0")
 ```
+
+# Swift 6 Migration Note
+
+`Injection` and the `@Instance` property wrapper are `@MainActor`-isolated to guarantee thread safety. Under Swift 6's strict concurrency checking, this has one consequence you need to be aware of:
+
+**Any type that declares an `@Instance(...)` property must itself be annotated `@MainActor`.**
+
+This applies even to nested types — a nested class does *not* automatically inherit the `@MainActor` isolation of its enclosing type. If the annotation is missing, the compiler has to synthesize a default initializer for your type, and that fails with an error along these lines:
+
+```
+error: default initializer for 'YourType' cannot be both nonisolated and main actor-isolated
+```
+
+**Before:**
+```swift
+class Consumer {
+    @Instance(ServicePackage.serviceShared) var service
+}
+```
+
+**After:**
+```swift
+@MainActor class Consumer {
+    @Instance(ServicePackage.serviceShared) var service
+}
+```
+
+In practice this rarely changes anything for typical app code, since view models, view controllers and SwiftUI `View`s that consume Inject are usually already `@MainActor`. It mostly matters for plain helper classes and test doubles that hold an `@Instance` property directly — including nested test helper classes.
 
 # Deprecation Notice and Migration Guide
 
