@@ -170,7 +170,7 @@ func test_Override_Local() {
 
 Adding the dependency
 
-Inject is designed for Swift 5. To depend on the Inject package, you need to declare your dependency in your Package.swift:
+Inject requires Swift 6.2 (Swift 6 language mode). To depend on the Inject package, you need to declare your dependency in your Package.swift:
 
 ```swift
 .package(url: "https://github.com/MaximBazarov/Inject.git", from: "1.0.0")

@@ -16,7 +16,7 @@ import Foundation
 
 /// ``Injection`` uses Strategy to define the way instances should be created,
 /// shared and when they should be deallocated.
-public struct Strategy {
+public struct Strategy: Sendable {
     let create: InstantiationStrategy
     let destroy: DeallocationStrategy
 
