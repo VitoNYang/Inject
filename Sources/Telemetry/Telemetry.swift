@@ -85,31 +85,32 @@ public final class Silence: Telemetry {
 }
 
 final class OSLogTelemetry: Telemetry {
+    let logger = Logger(subsystem: "im.mks.inject", category: "Inject")
 
     func log<O>(injection: Injection<O>, createdNewInstance instance: O, isOverride: Bool, context: Context) {
         let override = isOverride ? "(override) " : ""
-        debugPrint("created new instance \(ObjectIdentifier(instance as AnyObject).addressOnly), \(override)Injection<\(O.self)>: \(injection.context.debugDescription) Instance: \(context.debugDescription)")
+        logger.debug("created new instance \(ObjectIdentifier(instance as AnyObject).addressOnly), \(override)Injection<\(O.self)>: \(injection.context.debugDescription) Instance: \(context.debugDescription)")
     }
 
     func log<O>(injection: Injection<O>, returnedInstanceFromStorage instance: O, isOverride: Bool, isRetaining: Bool, context: Context) {
         let override = isOverride ? "(override) " : ""
-        debugPrint("returned \(String(describing:instance.self)) \(ObjectIdentifier(instance as AnyObject).addressOnly), \(override)Injection<\(O.self)>: \(injection.context.debugDescription) Instance: \(context.debugDescription)")
+        logger.debug("returned \(String(describing:instance.self)) \(ObjectIdentifier(instance as AnyObject).addressOnly), \(override)Injection<\(O.self)>: \(injection.context.debugDescription) Instance: \(context.debugDescription)")
     }
 
     func log<O>(injection: Injection<O>, returnedLocalInstance instance: O, context: Context) {
-        debugPrint("returned local instance -> \(ObjectIdentifier(instance as AnyObject).debugDescription), from: \(context.debugDescription)")
+        logger.debug("returned local instance -> \(ObjectIdentifier(instance as AnyObject).debugDescription), from: \(context.debugDescription)")
     }
 
     func log<O>(injection: Injection<O>, overridden override: Injection<O>) {
-        debugPrint("overridden global -> injection: \(injection.context.debugDescription), override: \(override.context.debugDescription)")
+        logger.debug("overridden global -> injection: \(injection.context.debugDescription), override: \(override.context.debugDescription)")
     }
 
     func log<O>(injection: Injection<O>, overriddenLocally instance: O, context: Context) {
-        debugPrint("overridden local instance -> (\(ObjectIdentifier(instance as AnyObject).debugDescription) injection: \(injection.context.debugDescription), from: \(context.debugDescription)")
+        logger.debug("overridden local instance -> (\(ObjectIdentifier(instance as AnyObject).debugDescription) injection: \(injection.context.debugDescription), from: \(context.debugDescription)")
     }
 
     func log<O>(injection: Injection<O>, removedOverride override: Injection<O>, context: Context) {
-        debugPrint("rolled back -> injection: \(injection.context.debugDescription), from: \(context.debugDescription)")
+        logger.debug("rolled back -> injection: \(injection.context.debugDescription), from: \(context.debugDescription)")
     }
 }
 
